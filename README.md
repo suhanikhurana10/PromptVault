@@ -1,70 +1,119 @@
-PromptVault
+# PromptVault
 
-PromptVault is a Spring Boot backend project that helps users save, organize, and manage AI prompts in one place. It provides secure user authentication, prompt management, version history, collections, tags, and search functionality.
+PromptVault is a production-ready Spring Boot backend application for storing, organizing, and managing AI prompts. It enables users to securely create, categorize, version, search, and manage prompts through a RESTful API with JWT-based authentication.
 
-Features
+---
 
-User registration and login with JWT authentication
+## Features
 
-Create, update, and delete prompts
+- Secure user registration and login using JWT authentication
+- Create, update, retrieve, and delete prompts
+- Organize prompts with collections and tags
+- Mark frequently used prompts as favorites
+- Automatic version history for prompt edits
+- Search and filter prompts efficiently
+- Interactive API documentation with Swagger UI
 
-Organize prompts using collections and tags
+---
 
-Mark prompts as favorites
+## Tech Stack
 
-Keep version history of every prompt
+- Java 23
+- Spring Boot
+- Spring Security
+- JWT Authentication
+- Spring Data JPA (Hibernate)
+- MySQL
+- Maven
+- Lombok
+- MapStruct
+- Swagger / OpenAPI
 
-Search and filter prompts
+---
 
-Swagger UI for API testing
+## Running the Project
 
-Tech Stack
+### 1. Clone the repository
 
-Java 23
+```bash
+git clone https://github.com/<your-username>/PromptVault.git
+cd PromptVault
+```
 
-Spring Boot
+### 2. Create the database
 
-Spring Security + JWT
+Create a MySQL database named:
 
-Spring Data JPA (Hibernate)
+```sql
+CREATE DATABASE promptvault;
+```
 
-MySQL
+### 3. Configure the database
 
-Maven
+Update the database credentials inside:
 
-Lombok
+```text
+src/main/resources/application.yml
+```
 
-MapStruct
+Example:
 
-Swagger/OpenAPI
+```yaml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/promptvault
+    username: your_username
+    password: your_password
+```
 
-Running the Project
+### 4. Run the application
 
-Clone the repository.
+Using Maven:
 
-Create a MySQL database named promptvault.
+```bash
+mvn spring-boot:run
+```
 
-Update the MySQL username and password in application.yml.
+Or run the main Spring Boot application class from your IDE.
 
-Run the application.
+---
 
-The backend will start on:
+## API Base URL
 
+```text
 http://localhost:8080
+```
 
-Swagger UI:
+### Swagger UI
 
+```text
 http://localhost:8080/swagger-ui.html
+```
 
-Project Structure
+---
 
-controller/
-service/
-service/impl/
-repository/
-entity/
-dto/
-mapper/
-security/
-config/
-exception/
+## Project Structure
+
+```text
+src
+└── main
+    └── java
+        └── com.promptvault
+            ├── config
+            ├── controller
+            ├── dto
+            ├── entity
+            ├── exception
+            ├── mapper
+            ├── repository
+            ├── security
+            ├── service
+            │   └── impl
+            └── PromptVaultApplication.java
+```
+
+---
+
+## License
+
+This project is intended for educational and learning purposes.
