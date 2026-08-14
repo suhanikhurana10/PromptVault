@@ -43,11 +43,12 @@ import java.util.Set;
                 @Index(name = "idx_prompts_title", columnList = "title")
         }
 )
+//for every field we hace getter adn setter
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@AllArgsConstructor //when all the field are provided by user in the same order as in the db
+@Builder //difficult to maintain allargs bcs need to rememeber every field so builder helps to only use specific field like .title.content etc
 @EqualsAndHashCode(callSuper = true, of = {})
 @ToString(callSuper = true, exclude = {"owner", "collection", "tags", "versions"})
 public class Prompt extends BaseEntity {
@@ -58,7 +59,7 @@ public class Prompt extends BaseEntity {
     private String title;
 
     @NotBlank
-    @Lob
+    @Lob //for long texts
     @Column(name = "content", nullable = false, columnDefinition = "LONGTEXT")
     private String content;
 
@@ -81,6 +82,7 @@ public class Prompt extends BaseEntity {
     private boolean favorite = false;
 
     @Column(name = "is_template", nullable = false)
+    //what default value should be there if none is given by the user
     @Builder.Default
     private boolean template = false;
 
@@ -92,10 +94,12 @@ public class Prompt extends BaseEntity {
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
+    //not neccesarily be there since it does not have not nullable field
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "collection_id")
     private Collection collection;
 
+    //auto geenrated table for many to many relationship between prompts and tags
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "prompt_tags",
@@ -108,8 +112,8 @@ public class Prompt extends BaseEntity {
     )
     @Builder.Default
     private Set<Tag> tags = new HashSet<>();
-
-    @OneToMany(mappedBy = "prompt", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+ //prompt version
+    @OneToMany(mappedBy = "prompt", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY) //cascade all meanning w=if the prompt is deleted all the versions hould be deletd too
     @OrderBy("versionNumber DESC")
     @Builder.Default
     private Set<PromptVersion> versions = new HashSet<>();

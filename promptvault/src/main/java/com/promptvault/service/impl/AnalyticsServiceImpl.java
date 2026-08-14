@@ -1,6 +1,7 @@
 package com.promptvault.service.impl;
 
 import com.promptvault.dto.response.AnalyticsResponse;
+import org.springframework.transaction.annotation.Transactional;
 import com.promptvault.entity.Prompt;
 import com.promptvault.entity.Tag;
 import com.promptvault.enums.PromptStatus;
@@ -33,6 +34,7 @@ public class AnalyticsServiceImpl implements AnalyticsService {
     private static final DateTimeFormatter MONTH_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM");
 
     @Override
+    @Transactional(readOnly = true)
     public AnalyticsResponse getAnalytics(UUID ownerId) {
         long activePrompts = promptRepository.countByOwnerIdAndStatus(ownerId, PromptStatus.ACTIVE);
         long archivedPrompts = promptRepository.countByOwnerIdAndStatus(ownerId, PromptStatus.ARCHIVED);
